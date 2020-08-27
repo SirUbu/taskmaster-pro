@@ -99,12 +99,20 @@ $(".list-group").on("click", "span", function() {
     .val(date);
   // swap out elements
   $(this).replaceWith(dateInput);
+  // enable jquery ui datepicker
+  dateInput.datepicker({
+    minDate: 0,
+    onClose: function() {
+      // when calendar is closed, force a "change" event on the "dateInput"
+      $(this).trigger("change");
+    }
+  });
   // automatically focus on new element 
   dateInput.trigger("focus");
 });
 
 // value of due date was changed
-$(".list-group").on("blur", "input[type='text']", function () {
+$(".list-group").on("change", "input[type='text']", function () {
   // get current text
   var date = $(this)
     .val()
@@ -164,6 +172,7 @@ $(".card .list-group").sortable({
   }
 });
 
+// item is dragged to the delete a task bar
 $("#trash").droppable({
   accept: ".card .list-group-item",
   tolerance: "touch",
@@ -188,6 +197,11 @@ $("#task-form-modal").on("show.bs.modal", function() {
 $("#task-form-modal").on("shown.bs.modal", function() {
   // highlight textarea
   $("#modalTaskDescription").trigger("focus");
+});
+
+// modal date picker
+$("#modalDueDate").datepicker({
+  minDate: 0
 });
 
 // save button in modal was clicked

@@ -132,7 +132,7 @@ $(".list-group").on("blur", "input[type='text']", function () {
 // make sortable
 $(".card .list-group").sortable({
   connectWith: $(".card .list-group"),
-  scroll: false,
+  scroll: true,
   tolerance: "pointer",
   helper: "clone",
   update: function(event) {
@@ -161,6 +161,20 @@ $(".card .list-group").sortable({
     // update array on tasks object and save
     tasks[arrName] = tempArr;
     saveTasks();
+  }
+});
+
+$("#trash").droppable({
+  accept: ".card .list-group-item",
+  tolerance: "touch",
+  drop: function(event, ui) {
+    ui.draggable.remove();
+  },
+  over: function(event, ui) {
+    console.log("over");
+  },
+  out: function(event, ui) {
+    console.log("out");
   }
 });
 

@@ -55,8 +55,7 @@ var auditTask = function (taskEl) {
   // convert to moment object at 5:00pm
   var time = moment(date, "L").set("hour", 17);
   // remove any old classes from element
-  $(taskEl).removeClass("list-group-item-warning list-group-danger");
-
+  $(taskEl).removeClass("list-group-item-warning list-group-item-danger");
   // apply new class if task is near/over due date
   if (moment().isAfter(time)) {
     $(taskEl).addClass("list-group-item-danger");
@@ -261,4 +260,9 @@ $("#remove-tasks").on("click", function() {
 // load tasks for the first time
 loadTasks();
 
-
+// timer for due date check
+setInterval(function() {
+  $(".card .list-group-item").each(function(el) {
+    auditTask(el);
+  });
+}, 1800000);

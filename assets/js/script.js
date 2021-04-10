@@ -84,12 +84,21 @@ $(".list-group").on("click", "span", function() {
   // swap out element
   $(this).replaceWith(dateInput);
 
+  // enable datepicker
+  dateInput.datepicker({
+    minDate: 1,
+    onClose: function() {
+      // when calendar is closed, force a "change" event on the "dateInput"
+      $(this).trigger("change");
+    }
+  });
+
   // automatically focus on new element
   dateInput.trigger("focus");
 });
 
 // user clicks away from date to save change
-$(".list-group").on("blur", "input[type='text']", function() {
+$(".list-group").on("change", "input[type='text']", function() {
   // get current text
   var date = $(this).val().trim();
 
@@ -166,6 +175,11 @@ $("#trash").droppable({
   out: function(event, ui) {
 
   }
+});
+
+// datepicker logic
+$("#modalDueDate").datepicker({
+  minDate: 1
 });
 
 // modal was triggered

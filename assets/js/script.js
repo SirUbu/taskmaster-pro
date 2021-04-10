@@ -244,7 +244,12 @@ $("#remove-tasks").on("click", function() {
   saveTasks();
 });
 
+// interval timer to periodically check task due date
+setInterval(function() {
+  $(".card .list-group-item").each(function(index, el) {
+    auditTask(el);
+  });
+}, (1000 * 60) * 30);
+
 // load tasks for the first time
 loadTasks();
-
-
